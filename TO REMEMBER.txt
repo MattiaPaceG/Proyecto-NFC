@@ -1,17 +1,45 @@
-IF YOU WANT TO UPDATE ANDROID APP 
+YOU HAVE TO INSTALL 
+if cloning this git repository, please make sure you have everything installed (node.js, ionic, angular, capacitor for android)
 
-npm run build
-npx cap sync
+refer to this guide https://ionicframework.com/docs/
+
+also, my advice is to use Visual Studio Code to work with this 
+https://code.visualstudio.com/
 
 
+-------------------------------------------------------------------------------------------------------------------------------
 
-IF YOU WANT TO OPEN WITH ANDROID STUDIO
+IT'S POSSIBLE TO TEST THE APP (not using device components) DIRECTLY ON BROWSER, to check if everything looks fine
+Before running, you have to put 
 
-npx cap open android
+REMEMBER TO SAVE PROJECT
 
+"ionic build" in terminal, which will create browser view (folder called www)
 
 TO RUN APP ON LOCAL HOST
 ionic serve 
 
 TO RUN APP ON SPECIFIC ADDRESS
 ionic serve address=CUSTOM_IP
+
+
+-----------------------------------------------------------------------------------------------------------------------------------
+TO CHECK WITH ANDROID STUDIO 
+please refer to this guide to install and make all necessary steps (capacitor)
+https://ionicframework.com/docs/developing/android
+
+my advice is to update the app from the project folder (terminar of visual studio code)
+
+REMEMBER TO SAVE PROJECT
+
+IF YOU WANT TO UPDATE ANDROID APP 
+
+npm run build
+npx cap sync
+
+
+and then open it with android studio 
+
+IF YOU WANT TO OPEN WITH ANDROID STUDIO
+
+npx cap open android
