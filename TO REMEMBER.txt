@@ -1,0 +1,17 @@
+IF YOU WANT TO UPDATE ANDROID APP 
+
+npm run build
+npx cap sync
+
+
+
+IF YOU WANT TO OPEN WITH ANDROID STUDIO
+
+npx cap open android
+
+
+TO RUN APP ON LOCAL HOST
+ionic serve 
+
+TO RUN APP ON SPECIFIC ADDRESS
+ionic serve address=CUSTOM_IP
