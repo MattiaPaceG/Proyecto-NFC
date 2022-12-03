@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AlertController } from '@ionic/angular';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-login',
@@ -9,7 +10,7 @@ import { AlertController } from '@ionic/angular';
 })
 export class LoginPage implements OnInit {
 
-  constructor(private router: Router, private alertController:AlertController) { }
+  constructor(private router: Router, private alertController:AlertController, private http: HttpClient) { }
 
   ngOnInit() {
   }
@@ -17,10 +18,11 @@ export class LoginPage implements OnInit {
  login = {};
  handlerMessage = '';
  roleMessage = ''
+ data: String = '';
 
  async showLoginFailedAlert() {
   const alert = await this.alertController.create({
-    header: 'Error! Password or email not correct',
+    header: 'Error! Email o Password no correctos',
     buttons: [
       {
         text: 'OK',
@@ -38,22 +40,28 @@ export class LoginPage implements OnInit {
 }
 
 
-  Login(){
+  async Login(){
     var email= this.login["email"];
     var pass= this.login["pass"];
 
-    if (pass == "1234"){
-      switch(email){
+    var query= '?email='+email+'&password='+pass;
 
-        case "estudiante":
+    var response= await this.http.get('https://Mattia.pythonanywhere.com/login'+query).toPromise()
+    this.data = response.toString();
+
+    if (this.data != "DENIED"){
+
+      switch(this.data){
+
+        case "Estudiante":
           this.router.navigate(['/estudiante-home'])
           break;
 
-        case "profesor":
+        case "Profesor":
           this.router.navigate(['/profesor-home'])
           break;
 
-        case "admin":
+        case "Admin":
           this.router.navigate(['/admin-home'])
           break;
         

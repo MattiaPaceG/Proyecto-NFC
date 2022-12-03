@@ -22,6 +22,7 @@
     "@awesome-cordova-plugins/android-permissions": "^5.46.0",
     "@awesome-cordova-plugins/file": "^5.46.0",
     "@awesome-cordova-plugins/nfc": "^5.46.0",
+    "@capacitor-community/http": "^1.4.1",
     "@capacitor/android": "^4.3.0",
     "@capacitor/app": "4.0.1",
     "@capacitor/core": "^4.3.0",
