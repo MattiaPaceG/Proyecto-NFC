@@ -13,18 +13,33 @@
     <div class="heading">
       <h2> Escanea los tags NFC de los estudiantes</h2>
     </div>
-  
+
     <div class ="container">
       <div text-center>
         <img width="200px" heigth="200px" src = "./assets/NFC-tag.png"/>
       </div>
     </div>
-  
+
     <div>
-      <ion-button expand="block" color="secondary" shape="round"> 
-          Terminado </ion-button>
-    </div> 
-    
+      <ion-button expand="block" color="secondary" shape="round">Terminado </ion-button>
+    </div>
+
+    <div>
+      <ion-item class="ion-margin-bottom">
+        <ion-label position="floating">ID de asignatura</ion-label>
+        <ion-input [(ngModel)]="lectureId" name="lectureId" required></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Estado de asistencia</ion-label>
+        <ion-select placeholder="Selecciona una opción">
+          <ion-select-option value="1">Presente</ion-select-option>
+          <ion-select-option value="2">Tardanza</ion-select-option>
+          <ion-select-option value="3">Ausente</ion-select-option>
+          <ion-select-option value="4">Ausente con excusa</ion-select-option>
+        </ion-select>
+      </ion-item>
+    </div>
+
   </ion-content>
 
 </ion-content>
