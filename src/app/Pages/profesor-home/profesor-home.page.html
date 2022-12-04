@@ -13,22 +13,22 @@
     <div class="heading">
       <h2> PROFESOR </h2>
     </div>
-  
+
     <div class = "btnAsistencia">
-      <ion-button expand="block" color="secondary" shape="round" [routerLink]="['/profesor-asistencia-nfc']" routerLinkActive="routerLink"> 
+      <ion-button expand="block" color="secondary" shape="round" [routerLink]="['/profesor-asistencia-nfc']" routerLinkActive="routerLink">
         <ion-icon name="time" slot="start"></ion-icon> Pasar Asistencia </ion-button>
     </div>
-  
+
     <div class = "btnVisualizarLista">
-      <ion-button expand="block" color="tertiary" shape="round" [disabled] = "verListadisabled" [routerLink]="['/profesor-asignaturas']" routerLinkActive="routerLink">
+      <ion-button expand="block" color="tertiary" shape="round" [disabled] = "false" [routerLink]="['/profesor-asignaturas']" routerLinkActive="routerLink">
         <ion-icon name="documents-outline"> slot="end"></ion-icon> Visualizar Asignaturas </ion-button>
     </div>
-  
+
     <div class = "btnEliminarRegistro">
       <ion-button expand="block" color="danger" shape="round" [routerLink]="['/profesor-asistencias']">
         <ion-icon name="calendar-number" slot="end"></ion-icon> Visualizar Asistencias </ion-button>
     </div>
-      
+
   </ion-content>
 
 </ion-content>

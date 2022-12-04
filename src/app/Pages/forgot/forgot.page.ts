@@ -8,40 +8,23 @@ import { HttpClient } from '@angular/common/http';
   styleUrls: ['./forgot.page.scss'],
 })
 export class ForgotPage implements OnInit {
+  public email = '';
 
-  constructor(private alertController:AlertController, private http: HttpClient) { }
+  constructor(private alertController: AlertController, private http: HttpClient) { }
 
   ngOnInit() {
   }
 
-  data = {};
-  handlerMessage = '';
-  roleMessage = ''
-  resp: String = '';
+  async sendRequest(){
+    if(!this.email) {
+      return this.showAlert('Por favor, escribe tu correo');
+    }
 
+    const query = `?email=${this.email}`;
 
-  async SendRequest(){
+    await this.http.get('https://mattia.pythonanywhere.com/reset_password' + query).toPromise();
 
-     var email = this.data["email"];
-     console.log(email)
-
-     if (email != null && email!= ''){
-
-      var query = "?email="+email
-
-      var response = this.http.get('https://mattia.pythonanywhere.com/reset_password'+query).toPromise()
-      this.resp = response.toString()
-
-      this.showAlert('Si existe un usuario con esa mail, recibirà un link para restablecer la password de la cuenta')
-
-     }
-     else{
-      this.showAlert('Por favor, escribe tu correo')
-     }
-
-
-     
-
+    this.showAlert('Si existe un usuario con esa mail, recibirà un link para restablecer la password de la cuenta');
   }
 
 
@@ -52,17 +35,12 @@ export class ForgotPage implements OnInit {
       buttons: [
         {
           text: 'OK',
-          role: 'confirm',
-          handler: () => {
-            this.handlerMessage = 'Alert confirmed';
-          },
+          role: 'confirm'
         },
       ],
     });
-  
+
     await alert.present();
-    const { role } = await alert.onDidDismiss();
-    this.roleMessage = `Dismissed with role: ${role}`;
   }
 
 }

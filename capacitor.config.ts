@@ -5,7 +5,6 @@ const config: CapacitorConfig = {
   appName: 'proyecto-1-nfc',
   webDir: 'www',
   bundledWebRuntime: false,
-  
 };
 
 

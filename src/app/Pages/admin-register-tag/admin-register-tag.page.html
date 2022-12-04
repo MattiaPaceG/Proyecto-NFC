@@ -8,6 +8,18 @@
 </ion-header>
 
 
-<ion-content>
-
+<ion-content fullscreen>
+  <div class="content">
+    <ion-text class="ion-margin-bottom">Ingrese los datos a guardar</ion-text>
+    <ion-item class="ion-margin-bottom">
+      <ion-label position="floating">ID</ion-label>
+      <ion-input [(ngModel)]="id" name="id" required></ion-input>
+    </ion-item>
+    <ion-item class="ion-margin-bottom">
+      <ion-label position="floating">Cédula</ion-label>
+      <ion-input [(ngModel)]="identification" name="identification" required></ion-input>
+    </ion-item>
+    <ion-button class="ion-margin-top" (click)="startListening()">Guardar</ion-button>
+    <ion-button  [routerLink]="['/profesor-asistencia-nfc']">READ</ion-button>
+  </div>
 </ion-content>

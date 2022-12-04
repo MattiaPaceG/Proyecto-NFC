@@ -35,6 +35,8 @@
     "cordova-plugin-android-permissions": "^1.1.4",
     "cordova-plugin-file": "^7.0.0",
     "ionicons": "^6.0.3",
+    "js-base64": "3.7.3",
+    "js-md5": "0.7.3",
     "phonegap-nfc": "^1.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.2.0",

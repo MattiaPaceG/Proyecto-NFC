@@ -1,7 +1,11 @@
-import { Component, OnInit, OnDestroy, ChangeDetectionStrategy, Input, ChangeDetectorRef } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { NFC } from '@awesome-cordova-plugins/nfc/ngx';
-import { AlertController, ToastController } from '@ionic/angular';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular';
+import { encode } from 'js-base64';
+import md5 from 'js-md5';
 import { Subscription } from 'rxjs';
+import { Student } from 'src/app/models/student';
 import { Attendee } from '../../models/attendee';
 
 @Component({
@@ -12,19 +16,32 @@ import { Attendee } from '../../models/attendee';
 
 export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
   @Input() attendance: Attendee[] = [];
-  nfc$: Subscription;
+  public students: Student[] = [];
+  private nfc$: Subscription;
+  private loader: HTMLIonLoadingElement;
 
   constructor(
     private nfc: NFC,
     private toastController: ToastController,
     private alertController: AlertController,
     private cdr: ChangeDetectorRef,
+    private http: HttpClient,
+    private loadingController: LoadingController
   ) { }
 
   ngOnInit() {
+    this.loadingController.create()
+    .then(loader => this.loader = loader)
+    .then(() => this.loader.present())
+    .then(() => this.http.get('https://asistencia-upn43.ondigitalocean.app/api/estudiantes/all').toPromise())
+    .then(response => (response as any[]).map(data => Student.fromJSON(data)))
+    .then(students => this.students = students)
+    .catch(err => console.error(err))
+    .finally(() => this.loader?.dismiss());
+
     this.nfc$ = this.nfc.addNdefListener().subscribe(
-      data => this.updateAttendance(String.fromCharCode(...data.tag.ndefMessage[0].payload)) ,
-      err => console.log('Error reading tag', err)
+      data => this.updateAttendance(String.fromCharCode(...data.tag.ndefMessage[0].payload).slice(3)) ,
+      err => this.onFailed(err)
     );
   }
 
@@ -32,11 +49,36 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
     this.nfc$.unsubscribe();
   }
 
-  updateAttendance(name: string) {
-    this.attendance = [...this.attendance, new Attendee(name, new Date())].slice();
+  async onFailed(err) {
+    console.error('Error reading tag', err);
+    const toast = await this.toastController.create({
+      message: 'NFC no soportado',
+      duration: 1500,
+      icon: 'reload',
+      color: 'danger'
+    });
+
+    await toast.present();
+  }
+
+  updateAttendance(hash: string) {
+    const student = this.students.find(s => hash === md5(encode(`${s.identification}@${s.id}`)));
+
+    if(!student) {
+      return this.toastController.create({
+        message: 'No está en la lista',
+        duration: 1500,
+        icon: 'warning',
+        color: 'warning'
+      })
+      .then(toast => toast.present())
+      .catch(err => console.error(err));
+    }
+
+    this.attendance = [...this.attendance, new Attendee(student.name, student.identification, new Date())].slice();
     this.cdr.detectChanges();
     this.toastController.create({
-      message: `¡${name} presente!`,
+      message: `¡${student.name} presente!`,
       duration: 1500,
       icon: 'checkmark',
       color: 'success'
