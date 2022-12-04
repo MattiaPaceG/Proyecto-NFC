@@ -43,8 +43,6 @@ export class LoginPage implements OnInit {
     const response = await this.http.get('https://Mattia.pythonanywhere.com/login' + query).toPromise();
     const data = response
 
-    console.log(data['db_id'])
-
     this.loginService.set_connected_id(data['db_id'])
 
     switch(data['role']){
