@@ -9,10 +9,10 @@
 
 
 <ion-content>
-  <form (ngSubmit)="SendRequest()">
+  <form (ngSubmit)="sendRequest()">
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="email" [(ngModel)]="data.email" name=email required></ion-input>
+      <ion-input type="email" [(ngModel)]="email" name=email required></ion-input>
     </ion-item>
     <ion-row>
       <ion-col>

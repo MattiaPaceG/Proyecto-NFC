@@ -5,7 +5,7 @@ const routes: Routes = [
 
   {
     path: '',
-    redirectTo: 'start',
+    redirectTo: 'admin-register-tag',
     pathMatch: 'full'
   },
   {

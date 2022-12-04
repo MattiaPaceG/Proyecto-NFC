@@ -8,31 +8,31 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="Register()">
+  <form (ngSubmit)="register()">
     <ion-item lines="full">
       <ion-label position="floating">First name</ion-label>
-      <ion-input type="text" [(ngModel)]="register.first" name ="first" required ></ion-input>
+      <ion-input type="text" [(ngModel)]="first" name ="first" required ></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Last name</ion-label>
-      <ion-input type="text" [(ngModel)]="register.last" name ="last" required></ion-input>
+      <ion-input type="text" [(ngModel)]="last" name ="last" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" [(ngModel)]="register.email" name ="email" required></ion-input>
+      <ion-input type="text" [(ngModel)]="email" name ="email" required></ion-input>
     </ion-item>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="register.pass" name ="pass" required></ion-input>
+      <ion-input type="password" [(ngModel)]="password" name ="pass" required></ion-input>
     </ion-item>
 
     <ion-list>
       <ion-item>
         <ion-label>Tipologia de Usuario</ion-label>
-        <ion-select (ionChange)="TypeChange($event)" interface="popover" placeholder="Seleccione">
+        <ion-select (ionChange)="typeChange($event)" interface="popover" placeholder="Seleccione">
           <ion-select-option value="Estudiante">Estudiante</ion-select-option>
           <ion-select-option value="Profesor">Profesor</ion-select-option>
           <ion-select-option value="Administrador">Administrador</ion-select-option>
