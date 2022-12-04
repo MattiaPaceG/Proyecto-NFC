@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, OnDestroy, Input, ChangeDetectorRef } from '@angular/core';
 import { NFC } from '@awesome-cordova-plugins/nfc/ngx';
@@ -17,6 +18,8 @@ import { Attendee } from '../../models/attendee';
 export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
   @Input() attendance: Attendee[] = [];
   public students: Student[] = [];
+  public lectureId = '';
+  public status = '1';
   private nfc$: Subscription;
   private loader: HTMLIonLoadingElement;
 
@@ -76,15 +79,35 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
     }
 
     this.attendance = [...this.attendance, new Attendee(student.name, student.identification, new Date())].slice();
-    this.cdr.detectChanges();
-    this.toastController.create({
+
+    const date = new Date();
+
+    this.http.post('https://asistencia-upn43.ondigitalocean.app/api/estudiante/asistencia', {
+      fecha: date.toLocaleDateString(),
+      hora: date.toLocaleTimeString(),
+      estudiante_id: student.id,
+      grupo_asignatura_id: this.lectureId,
+      estado_asistencia_id: parseInt(this.status, 10)
+    }).toPromise()
+    .then(() => this.cdr.detectChanges())
+    .then(() => this.toastController.create({
       message: `¡${student.name} presente!`,
       duration: 1500,
       icon: 'checkmark',
       color: 'success'
-    })
+    }))
     .then(toast => toast.present())
-    .catch(err => console.error(err));
+    .catch(err => {
+      console.error(err);
+      this.toastController.create({
+        message: 'Ya existe el registro de asistencia',
+        duration: 1500,
+        icon: 'warning',
+        color: 'warning'
+      })
+      .then(toast => toast.present())
+      .catch(e => console.error(e));
+    });
   }
 
   handleClear() {
