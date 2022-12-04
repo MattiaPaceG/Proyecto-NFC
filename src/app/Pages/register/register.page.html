@@ -8,26 +8,52 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="register()">
+  <form (ngSubmit)="submitForm()" [formGroup]="registerForm" novalidate>
     <ion-item lines="full">
-      <ion-label position="floating">First name</ion-label>
-      <ion-input type="text" [(ngModel)]="first" name ="first" required ></ion-input>
+      <ion-label position="floating">Nombre</ion-label>
+      <ion-input formControlName="first" type="text"  name ="first" required ></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.first.errors?.required">
+      Indicar el nombre es necesario para registrarse
+    </span>
 
     <ion-item lines="full">
-      <ion-label position="floating">Last name</ion-label>
-      <ion-input type="text" [(ngModel)]="last" name ="last" required></ion-input>
+      <ion-label position="floating">Apellido</ion-label>
+      <ion-input formControlName="last" type="text"  name ="last" required></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.last.errors?.required">
+      Indicar el apellido es necesario para registrarse
+    </span>
+
+    <ion-item lines="full">
+      <ion-label position="floating">Cedula</ion-label>
+      <ion-input type="text" formControlName="cedula"  name ="cedula" placeholder='XX-XXXX-XXXXXX'required></ion-input>
+    </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.cedula.errors?.required">
+      Indicar la cedula es necesario para registrarse
+    </span>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.cedula.errors?.pattern">
+      Por favor, ponga la cedula con el formato indicado.
+    </span>
 
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email" name ="email" required></ion-input>
+      <ion-input type="text" formControlName="email" name ="email" required></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.required">
+      Indicar la email es necesario para registrarse
+    </span>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.email.errors?.pattern">
+      Por favor, introduzca una mail valida.
+    </span>
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name ="pass" required></ion-input>
+      <ion-input type="password" formControlName="password"  name ="pass" required></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && errorControl.password.errors?.required">
+      Indicar la password es necesario para registrarse
+    </span>
 
     <ion-list>
       <ion-item>
@@ -39,10 +65,13 @@
         </ion-select>
       </ion-item>
     </ion-list>
+    <span class="error-ion-padding" *ngIf="isSubmitted && typenotchose">
+      por favor, indique la tipologia de usuario
+    </span>
 
     <ion-row>
       <ion-col>
-        <ion-button type="submit" color="danger" expand="block" onclick="register()">Sign Up</ion-button>
+        <ion-button type="submit" color="danger" expand="block">Registrarse</ion-button>
       </ion-col>
     </ion-row>
   </form>
