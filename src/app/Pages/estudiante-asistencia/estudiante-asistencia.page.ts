@@ -15,10 +15,10 @@ export class EstudianteAsistenciaPage implements OnInit {
 
   public groups: Group[] = []
   public attendences: Attendance[] = []
-  public view_attendences: Attendance[] = []  
-  public groups_map = new Map <string, string[]>(); 
+  public view_attendences: Attendance[] = []
+  public groups_map = new Map <string, string[]>();
   public isAsigFiltered = false;
-  public isEstadoFiltered = false; 
+  public isEstadoFiltered = false;
   public AsignaturaFilter: String[] = [];
   public StateFilter: String[] = [];
   public hasResults = true;
@@ -31,7 +31,7 @@ export class EstudianteAsistenciaPage implements OnInit {
 
 
   ngOnInit() {}
-            
+
   async getGroups(){
       var response = await this.http.get('https://asistencia-upn43.ondigitalocean.app/api/grupos/estudiante/'+this.loginService.get_connected_id()).toPromise()
       .then (response => (response as any[]).map(data => Group.fromJSON(data)))
@@ -117,7 +117,7 @@ export class EstudianteAsistenciaPage implements OnInit {
   }
 
   public getColor(index :number) : string {
-    switch( index) { 
+    switch( index) {
       case 1 : return "#41A33E"
       case 2 : return "#E3B778"
       case 3 : return "#960019"

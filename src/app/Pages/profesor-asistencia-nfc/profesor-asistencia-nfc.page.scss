@@ -16,3 +16,15 @@ ion-toolbar{
     justify-content: center;
     align-items: center;
 }
+
+.empty {
+    margin-top: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.main-icon {
+    font-size: 50px;
+}

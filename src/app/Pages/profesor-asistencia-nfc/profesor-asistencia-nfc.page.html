@@ -8,38 +8,51 @@
 </ion-header>
 
 <ion-content>
+  <div class="heading">
+    <h2> Escanea los tags NFC de los estudiantes</h2>
+  </div>
 
-  <ion-content>
-    <div class="heading">
-      <h2> Escanea los tags NFC de los estudiantes</h2>
+  <div class ="container">
+    <div text-center>
+      <img width="200px" heigth="200px" src = "./assets/NFC-tag.png"/>
     </div>
+  </div>
 
-    <div class ="container">
-      <div text-center>
-        <img width="200px" heigth="200px" src = "./assets/NFC-tag.png"/>
-      </div>
-    </div>
+  <div>
+    <ion-button expand="block" color="secondary" shape="round">Terminado </ion-button>
+  </div>
 
-    <div>
-      <ion-button expand="block" color="secondary" shape="round">Terminado </ion-button>
-    </div>
+  <div class="ion-margin-bottom">
+    <ion-item>
+      <ion-label position="floating">Estado de asistencia</ion-label>
+      <ion-select [(ngModel)]="status" placeholder="Selecciona una opción">
+        <ion-select-option value="1">Presente</ion-select-option>
+        <ion-select-option value="2">Tardanza</ion-select-option>
+        <ion-select-option value="3">Ausente</ion-select-option>
+        <ion-select-option value="4">Ausente con excusa</ion-select-option>
+      </ion-select>
+    </ion-item>
+  </div>
 
-    <div>
-      <ion-item class="ion-margin-bottom">
-        <ion-label position="floating">ID de asignatura</ion-label>
-        <ion-input [(ngModel)]="lectureId" name="lectureId" required></ion-input>
+  <ion-list *ngIf="attendance.length > 0 else empty">
+    <ion-virtual-scroll [items]="attendance" approxItemHeight="88px">
+      <ion-item *virtualItem="let attendee; let itemBounds = bounds;">
+        <ion-avatar slot="start">
+          <img alt="Foto asistencia" [src]="attendee.photoUrl" />
+        </ion-avatar>
+        <ion-label>
+          <h3>{{ attendee.name }} ({{ attendee.identification }})</h3>
+          <p>{{ attendee.timestamp | date: 'M/d/yy, h:mm:ss a' }}</p>
+        </ion-label>
+        <ion-icon [name]="getIcon(attendee.status)" [color]="getColor(attendee.status)" slot="end"></ion-icon>
       </ion-item>
-      <ion-item>
-        <ion-label position="floating">Estado de asistencia</ion-label>
-        <ion-select placeholder="Selecciona una opción">
-          <ion-select-option value="1">Presente</ion-select-option>
-          <ion-select-option value="2">Tardanza</ion-select-option>
-          <ion-select-option value="3">Ausente</ion-select-option>
-          <ion-select-option value="4">Ausente con excusa</ion-select-option>
-        </ion-select>
-      </ion-item>
+    </ion-virtual-scroll>
+  </ion-list>
+  <ng-template #empty>
+    <div class="empty">
+      <h3 class="ion-no-margin"><ion-text color="medium">Lista de asistencia vacía</ion-text></h3>
+      <ion-text class="main-icon"><ion-icon name="radio" color="medium" class="ion-margin-vertical"></ion-icon></ion-text>
+      <p class="ion-no-margin ion-padding-bottom"><ion-text color="medium">Acerque el tag NFC para registrar asistencia</ion-text></p>
     </div>
-
-  </ion-content>
-
+  </ng-template>
 </ion-content>

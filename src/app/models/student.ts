@@ -5,7 +5,7 @@ export class Student {
     public lastName: string,
     public identification: string,
     public email: string,
-    public photoUrl: string,
+    public photoUrl: string | null,
     public createdAt: Date,
     public updatedAt: Date,
   ) { }
