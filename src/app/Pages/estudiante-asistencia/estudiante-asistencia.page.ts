@@ -33,7 +33,7 @@ export class EstudianteAsistenciaPage implements OnInit {
   ngOnInit() {}
             
   async getGroups(){
-      var response = await this.http.get('https://asistencia-upn43.ondigitalocean.app/api/grupos/estudiante/32'/*+this.loginService.get_connected_id()*/).toPromise()
+      var response = await this.http.get('https://asistencia-upn43.ondigitalocean.app/api/grupos/estudiante/'+this.loginService.get_connected_id()).toPromise()
       .then (response => (response as any[]).map(data => Group.fromJSON(data)))
       .then (groups => this.groups = groups)
       .catch(err => console.error(err))

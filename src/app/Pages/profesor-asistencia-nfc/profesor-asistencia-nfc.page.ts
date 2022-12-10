@@ -8,6 +8,7 @@ import md5 from 'js-md5';
 import { Subscription } from 'rxjs';
 import { Student } from 'src/app/models/student';
 import { Attendee } from '../../models/attendee';
+import { GlobalsService } from 'src/app/services/globals.service';
 
 @Component({
   selector: 'app-profesor-asistencia-nfc',
@@ -29,10 +30,15 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
     private alertController: AlertController,
     private cdr: ChangeDetectorRef,
     private http: HttpClient,
-    private loadingController: LoadingController
+    private loadingController: LoadingController,
+    private globalService: GlobalsService
   ) { }
 
   ngOnInit() {
+
+    //use this.globalService.get_selected_group() if you want to get the value of selected group to use in query
+    console.log(this.globalService.get_selected_group())
+
     this.loadingController.create()
     .then(loader => this.loader = loader)
     .then(() => this.loader.present())
