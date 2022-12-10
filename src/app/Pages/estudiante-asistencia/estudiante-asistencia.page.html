@@ -24,7 +24,11 @@
     </ion-select>
   </ion-item>
 
+  <ng-container *ngIf="!hasResults">
+    <ion-label class="no-results"> No hay registros </ion-label>
+  </ng-container>
 
+<ng-container *ngIf="hasResults">
   <ng-container *ngFor="let att of view_attendences">
     <ion-grid>
       <ion-row  [ngStyle]="{backgroundColor:getColor(att.estado)}">
@@ -44,7 +48,8 @@
         </ion-col>
       </ion-row>
     </ion-grid>
-    
   </ng-container>
+</ng-container>
+
 
 </ion-content>

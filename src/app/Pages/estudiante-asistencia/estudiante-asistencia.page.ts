@@ -21,7 +21,7 @@ export class EstudianteAsistenciaPage implements OnInit {
   public isEstadoFiltered = false; 
   public AsignaturaFilter: String[] = [];
   public StateFilter: String[] = [];
-  public hasResults = undefined;
+  public hasResults = true;
 
 
   constructor(private alertController: AlertController,
@@ -113,7 +113,7 @@ export class EstudianteAsistenciaPage implements OnInit {
       this.view_attendences = this.view_attendences.filter (s => this.StateFilter.includes(s.estado.toString()))
     }
 
-    this.check_attendances_length()
+    this.hasResults = this.check_attendances_length()
   }
 
   public getColor(index :number) : string {
