@@ -74,7 +74,7 @@ export class AdminRegisterTagPage implements OnDestroy {
       const alert = await this.alertController.create({
         buttons: [
           {
-            text: 'OK',
+            text: 'Error al grabar datos',
             role: 'confirm'
           },
         ],
