@@ -11,6 +11,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
   templateUrl: './register.page.html',
   styleUrls: ['./register.page.scss'],
 })
+
 export class RegisterPage implements OnInit {
   public first = '';
   public last = '';
@@ -21,7 +22,6 @@ export class RegisterPage implements OnInit {
   public submitId;
   public students: Student[] = [];
   private loader: HTMLIonLoadingElement;
-  private CEDULA_PATTERN = /^([a-zA-Z0-9]{2}-[0-9]{4}-[0-9]{6})$/;
   isSubmitted = false;
   registerForm: FormGroup;
   typenotchose = true;
@@ -37,8 +37,8 @@ export class RegisterPage implements OnInit {
     this.registerForm = this.formBuilder.group({
       first:['', [Validators.required]],
       last:['', [Validators.required]],
-      cedula:['', [Validators.required, Validators.pattern('[a-zA-z0-9]{2}-[0-9]{4}-[0-9]{6}')]],
-      email:['', [Validators.required, Validators.pattern('[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$')]],
+      cedula:['', [Validators.required, Validators.pattern('[a-zA-Z0-9]{2}-[0-9]{4}-[0-9]{6}')]],
+      email:['', [Validators.required, Validators.pattern('[A-Za-z0-9._%+-]+@utp.ac.pa$')]],
       password:['', [Validators.required]],
     })
   
@@ -58,7 +58,6 @@ export class RegisterPage implements OnInit {
     this.isSubmitted = true;
 
     if (!this.registerForm.valid || this.typenotchose){
-      console.log("Please provide all the required values!")
       return false;
     }else{
       this.register()
@@ -66,30 +65,40 @@ export class RegisterPage implements OnInit {
   }
 
   async register(){
+
+    var loading = await this.loadingController.create({
+      message: 'Registrando usuario...',
+      cssClass: 'custom-loading',
+    });
+
+    loading.present()
+
     this.first =this.registerForm.value.first
     this.last = this.registerForm.value.last
     this.email = this.registerForm.value.email
     this.password = this.registerForm.value.password
     this.cedula = this.registerForm.value.cedula
-    this.submitId = 1
+    this.submitId = 0
 
     if (this.type == "Estudiante"){
       const student = this.students.find(s => this.cedula === s.identification)
-      this.submitId = student.id
       if (student == null){
          this.showAlert('Cedula de estudiante no encontrada!')
          return 0
       }
+      this.submitId = student.id
     }
 
     const query = `?email=${this.email}&password=${this.password}&role=${this.type}&first=${this.first}&last=${this.last}&cedula=${this.cedula}&subID=${this.submitId}`;
     const response = await this.http.get('https://Mattia.pythonanywhere.com/register' + query).toPromise();
 
+    loading.dismiss()
+
     if (response == "-1"){
-      return this.showAlert('El e-mail utilizado està ya registrado');
+      return this.showAlert('El e-mail utilizado ya està registrado');
     }
     else if (response == "-2"){
-      return this.showAlert('La cedula ha ya sido registrada');
+      return this.showAlert('La cedula introducida ya està registrada');
     }
     else{
       this.showAlert('El nuevo usuario se ha registrado con exito!');

@@ -12,7 +12,6 @@
     align-items: center;
     margin: 1em -1em;
     color: #cccccc;
-    
     &:before,
     &:after {
       height: 1px;
@@ -23,7 +22,7 @@
   .one-line {
     &:before,
     &:after {
-       background: #cccccc;
+       background: #0400fd;
     }
   }
   
@@ -38,3 +37,4 @@
     text-align: center;
     padding-bottom: 10px;
   }
+  

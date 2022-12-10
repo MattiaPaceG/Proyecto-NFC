@@ -3,10 +3,48 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Estudiante Verificar Asistencia</ion-title>
+    <ion-title>Verificar Asistencia</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+
+  <ion-item>
+    <ion-select multiple="true" [(ngModel)]="asignaturaSelect" placeholder="Filtrar asignatura" class="filter-select ion-text-wrap select-text" (ionChange)="applyAsigFilter($event)">
+      <ion-select-option *ngFor="let group of groups" value="{{ group.asignatura }}" class="ion-text-wrap">{{ group.asignatura }}</ion-select-option>
+    </ion-select>
+  </ion-item>
+  
+  <ion-item>
+    <ion-select multiple="true" placeholder="Filtrar estado" slot="start" class="filter-select ion-text-wrap select-text" (ionChange)="applyStateFilter($event)">
+      <ion-select-option value="1">Presente</ion-select-option>
+      <ion-select-option value="2">Con Retraso</ion-select-option>
+      <ion-select-option value="3">Ausente</ion-select-option>
+      <ion-select-option value="4">Ausente con excusa</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+
+  <ng-container *ngFor="let att of view_attendences">
+    <ion-grid>
+      <ion-row  [ngStyle]="{backgroundColor:getColor(att.estado)}">
+        <ion-col size = "10">
+          <ion-row>
+            <ion-label class="subject_text">{{att.nombre_asignatura}} ({{att.codigo_asignatura}})</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-label class="date_text">{{att.fecha}}  {{att.hora}}</ion-label>
+          </ion-row>
+        </ion-col>
+        <ion-col>
+          <ion-thumbnail *ngIf="att.estado == 1" > <img src="https://mattia.pythonanywhere.com/static/pics/green_check.png" class="att_image"> </ion-thumbnail>
+          <ion-thumbnail *ngIf="att.estado == 2" > <img src="https://mattia.pythonanywhere.com/static/pics/delayed.png" class="att_image"> </ion-thumbnail>
+          <ion-thumbnail *ngIf="att.estado == 3" > <img src="https://mattia.pythonanywhere.com/static/pics/red_cross.png" class="att_image"> </ion-thumbnail>
+          <ion-thumbnail *ngIf="att.estado == 4" > <img src="https://mattia.pythonanywhere.com/static/pics/excused.png" class="att_image"> </ion-thumbnail>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+  </ng-container>
 
 </ion-content>

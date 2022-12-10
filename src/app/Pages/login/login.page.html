@@ -8,22 +8,33 @@
 </ion-header>
 
 <ion-content>
-  <form (ngSubmit)="login()">
+  <form (ngSubmit)="submitForm()" [formGroup]="loginForm" novalidate>
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
-      <ion-input type="text" [(ngModel)]="email" name="email" required></ion-input>
+      <ion-input type="text" formControlName="email" name ="email" required></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && loginForm.hasError('required' , 'email')">
+      Indicar la email es necesario para ingresar
+    </span>
+    <span class="error-ion-padding" *ngIf="isSubmitted && loginForm.hasError('pattern' , 'email')">
+      Por favor, introduzca una mail institucional valida.
+    </span>
+
 
     <ion-item lines="full">
       <ion-label position="floating">Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password" name="pass" required></ion-input>
+      <ion-input type="password" formControlName="password"  name ="password" required></ion-input>
     </ion-item>
+    <span class="error-ion-padding" *ngIf="isSubmitted && loginForm.hasError('required' , 'password')">
+      Indicar la password es necesario para ingresar
+    </span>
 
     <ion-row>
       <ion-col>
         <ion-button type="submit" color="danger" expand="block">Sign In</ion-button>
-        <a [routerLink]="['/forgot']" class="small-text">Forgot Password?</a>
+        <a [routerLink]="['/forgot']" class="small-text">Password olvidada?</a>
       </ion-col>
     </ion-row>
   </form>
+  
 </ion-content>

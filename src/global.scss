@@ -35,3 +35,25 @@
     --background:#1833FF;
     --button-color:#ffffff;
 }
+
+.alert-radio-label.sc-ion-alert-md,
+.alert-radio-label.sc-ion-alert-ios {
+    white-space: normal;
+
+}
+
+.alert-tappable.alert-radio{
+    height: auto;
+    contain:content;
+}
+
+
+.alert-checkbox-label.sc-ion-alert-md,
+.alert-checkbox-label.sc-ion-alert-ios {
+   white-space: normal;
+}
+.alert-tappable.alert-checkbox {
+   height: auto;
+   contain: content;
+}
+
