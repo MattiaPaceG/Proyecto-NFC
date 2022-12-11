@@ -37,12 +37,12 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
   ngOnInit() {
 
     //use this.globalService.get_selected_group() if you want to get the value of selected group to use in query
-    console.log(this.globalService.get_selected_group())
+    this.lectureId = this.globalService.get_selected_group();
 
     this.loadingController.create()
     .then(loader => this.loader = loader)
     .then(() => this.loader.present())
-    .then(() => this.http.get('https://asistencia-upn43.ondigitalocean.app/api/estudiantes/all').toPromise())
+    .then(() => this.http.get(`https://asistencia-upn43.ondigitalocean.app/api/estudiantes/grupos/${this.lectureId}`).toPromise())
     .then(response => (response as any[]).map(data => Student.fromJSON(data)))
     .then(students => this.students = students)
     .catch(err => console.error(err))
@@ -84,8 +84,6 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
       .catch(err => console.error(err));
     }
 
-    this.attendance = [...this.attendance, new Attendee(student.name, student.identification, new Date())].slice();
-
     const date = new Date();
 
     this.http.post('https://asistencia-upn43.ondigitalocean.app/api/estudiante/asistencia', {
@@ -95,6 +93,16 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
       grupo_asignatura_id: this.lectureId,
       estado_asistencia_id: parseInt(this.status, 10)
     }).toPromise()
+    .then(() => this.attendance = [
+      ...this.attendance,
+      new Attendee(
+        `${student.name} ${student.lastName}`,
+        student.identification,
+        date,
+        parseInt(this.status, 10),
+        student.photoUrl ?? 'https://ionicframework.com/docs/img/demos/avatar.svg'
+      )
+    ])
     .then(() => this.cdr.detectChanges())
     .then(() => this.toastController.create({
       message: `¡${student.name} presente!`,
@@ -146,6 +154,28 @@ export class ProfesorAsistenciaNfcPage implements OnInit, OnDestroy {
     })
     .then(toast => toast.present())
     .catch(err => console.error(err));
+  }
+
+  getIcon(status: number) {
+    switch(status) {
+      case 1: return 'checkmark-outline';
+      case 2: return 'alert-circle-outline';
+      case 3: return 'close-outline';
+      case 4: return 'thumbs-up-outline';
+    }
+
+    return 'help-outline';
+  }
+
+  getColor(status: number) {
+    switch(status) {
+      case 1: return 'success';
+      case 2: return 'warning';
+      case 3: return 'danger';
+      case 4: return 'danger';
+    }
+
+    return 'info';
   }
 
 }

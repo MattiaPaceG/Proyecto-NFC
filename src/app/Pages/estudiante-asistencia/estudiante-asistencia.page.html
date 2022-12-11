@@ -10,11 +10,11 @@
 <ion-content>
 
   <ion-item>
-    <ion-select multiple="true" [(ngModel)]="asignaturaSelect" placeholder="Filtrar asignatura" class="filter-select ion-text-wrap select-text" (ionChange)="applyAsigFilter($event)">
+    <ion-select multiple="true" placeholder="Filtrar asignatura" class="filter-select ion-text-wrap select-text" (ionChange)="applyAsigFilter($event)">
       <ion-select-option *ngFor="let group of groups" value="{{ group.asignatura }}" class="ion-text-wrap">{{ group.asignatura }}</ion-select-option>
     </ion-select>
   </ion-item>
-  
+
   <ion-item>
     <ion-select multiple="true" placeholder="Filtrar estado" slot="start" class="filter-select ion-text-wrap select-text" (ionChange)="applyStateFilter($event)">
       <ion-select-option value="1">Presente</ion-select-option>
