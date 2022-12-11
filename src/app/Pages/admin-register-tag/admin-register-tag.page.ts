@@ -47,6 +47,7 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
       icon: 'radio',
       color: 'primary'
     });
+    this.loading.dismiss();
 
     await toast.present();
 
