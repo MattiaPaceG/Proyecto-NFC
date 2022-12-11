@@ -19,7 +19,6 @@
       <ion-label position="floating">Cédula</ion-label>
       <ion-input [(ngModel)]="identification" name="identification" required></ion-input>
     </ion-item>
-    <ion-button class="ion-margin-top" (click)="startListening()">Guardar</ion-button>
-    <ion-button  [routerLink]="['/profesor-asistencia-nfc']">READ</ion-button>
+    <ion-button class="ion-margin-top" (click)="startListening()" [disabled]="reading">Guardar</ion-button>
   </div>
 </ion-content>

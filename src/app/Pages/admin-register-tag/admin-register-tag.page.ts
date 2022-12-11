@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { ChangeDetectorRef, Component, OnDestroy } from '@angular/core';
 import { Ndef, NFC } from '@awesome-cordova-plugins/nfc/ngx';
 import { AlertController, ToastController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
@@ -13,16 +13,19 @@ import md5 from 'js-md5';
 export class AdminRegisterTagPage implements OnDestroy {
   public id = '';
   public identification = '';
+  public reading = false;
   private nfc$: Subscription;
 
   constructor(
     private nfc: NFC,
     private ndef: Ndef,
+    private cdr: ChangeDetectorRef,
     private alertController: AlertController,
     private toastController: ToastController
   ) { }
 
   async startListening() {
+    this.reading = true;
     const toast = await this.toastController.create({
       message: 'Acerca el tag NFC',
       duration: 1500,
@@ -70,7 +73,8 @@ export class AdminRegisterTagPage implements OnDestroy {
       });
 
       await toast.present();
-    } catch {
+    } catch(e) {
+      console.error(e);
       const alert = await this.alertController.create({
         buttons: [
           {
@@ -81,6 +85,10 @@ export class AdminRegisterTagPage implements OnDestroy {
       });
 
       await alert.present();
+    } finally {
+      this.nfc$.unsubscribe();
+      this.reading = false;
+      this.cdr.detectChanges();
     }
   }
 
