@@ -65,6 +65,8 @@ export class RegisterPage implements OnInit {
   }
 
   async register(){
+    this.route.navigate(['/start']);
+    return 
 
     var loading = await this.loadingController.create({
       message: 'Registrando usuario...',

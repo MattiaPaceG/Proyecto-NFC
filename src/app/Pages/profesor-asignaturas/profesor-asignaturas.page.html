@@ -1,9 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Profesor Visualizar Asignaturas</ion-title>
+    <ion-back-button slot="start"></ion-back-button>
+      <ion-button slot="end" (click)="logout($event)">
+        <ion-icon slot="icon-only" name="exit-outline"></ion-icon>>
+      </ion-button>
+    <ion-title>Profesor Asignaturas</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -15,7 +16,7 @@
       <img *ngIf="group.asignatura=='Desarrollo de Software IV'" alt="DES img" src="https://mattia.pythonanywhere.com/static/pics/DES.png" />
       <ion-card-header>
         <ion-card-title>{{group.asignatura}} ({{group.codigo}})</ion-card-title>
-        <ion-card-subtitle>{{group.grupo}}</ion-card-subtitle>
+        <ion-card-subtitle class="sub">Grupo: {{group.grupo}}</ion-card-subtitle>
       </ion-card-header>
 
       <ion-card-content>

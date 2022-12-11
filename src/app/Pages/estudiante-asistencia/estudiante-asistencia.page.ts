@@ -5,6 +5,7 @@ import { LoginService } from 'src/app/services/login.service';
 import { Group } from 'src/app/models/groups';
 import { Attendance } from 'src/app/models/attendance';
 import { FormsModule } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-estudiante-asistencia',
@@ -27,7 +28,8 @@ export class EstudianteAsistenciaPage implements OnInit {
   constructor(private alertController: AlertController,
               private http: HttpClient,
               private loginService : LoginService,
-              private loadingController: LoadingController) { }
+              private loadingController: LoadingController,
+              private router: Router) { }
 
 
   ngOnInit() {}
@@ -123,5 +125,10 @@ export class EstudianteAsistenciaPage implements OnInit {
       case 3 : return "#960019"
       case 4 : return "#FA8072"
     }
+  }
+
+  logout(event){
+    this.loginService.erase_connected_id()
+    this.router.navigate(['/start'], {replaceUrl:true}); 
   }
 }

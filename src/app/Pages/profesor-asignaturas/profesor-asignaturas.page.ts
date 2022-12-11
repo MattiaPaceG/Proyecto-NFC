@@ -44,6 +44,8 @@ export class ProfesorAsignaturasPage implements OnInit {
     //get professor groups
     await this.getGroups()
 
+    this.globalService.erase_selected_group()
+
     loading.dismiss()
 
     console.log(this.groups)
@@ -58,6 +60,12 @@ export class ProfesorAsignaturasPage implements OnInit {
   VisualizarAsistencia(ev){
     this.globalService.set_selected_group(ev)
     this.router.navigate(['profesor-asistencias'])
+  }
+
+  logout(event){
+    this.loginService.erase_connected_id()
+    this.globalService.erase_selected_group()
+    this.router.navigate(['/start'], {replaceUrl:true}); 
   }
 
 }
