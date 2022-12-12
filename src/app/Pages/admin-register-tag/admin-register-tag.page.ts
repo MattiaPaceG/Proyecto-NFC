@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class AdminRegisterTagPage implements OnDestroy, OnInit {
   public id = '';
   public identification = '';
+  public reading = false;
   private nfc$: Subscription;
 
   public loading= null;
@@ -25,6 +26,7 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
   constructor(
     private nfc: NFC,
     private ndef: Ndef,
+    private cdr: ChangeDetectorRef,
     private alertController: AlertController,
     private toastController: ToastController,
     private loginService: LoginService,
@@ -41,6 +43,7 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
   }
 
   async startListening() {
+    this.reading = true;
     const toast = await this.toastController.create({
       message: 'Acerca el tag NFC',
       duration: 1500,
@@ -91,7 +94,8 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
       });
 
       await toast.present();
-    } catch {
+    } catch(e) {
+      console.error(e);
       const alert = await this.alertController.create({
         buttons: [
           {
@@ -102,6 +106,10 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
       });
 
       await alert.present();
+    } finally {
+      this.nfc$.unsubscribe();
+      this.reading = false;
+      this.cdr.detectChanges();
     }
   }
 
@@ -111,7 +119,6 @@ export class AdminRegisterTagPage implements OnDestroy, OnInit {
   }
 
   async submitForm(){
-    console.log("PRUEBA")
     this.isSubmitted = true;
 
     if (!this.tagInfoForm.valid){
