@@ -10,7 +10,7 @@
 
     text-align: center;
     text-size-adjust: auto;
-    font-size: 25px;
+    font-size: 35px;
     margin-bottom: 5px;
     margin-top: 5px;
     
@@ -20,7 +20,7 @@ h2{
 
     text-align: center;
     text-size-adjust: auto;
-    font-size: 15px; 
+    font-size: 18px; 
     margin-bottom: 5px;
     margin-top: 5px;   
 }
@@ -50,18 +50,18 @@ h2{
   .one-line {
     &:before,
     &:after {
-       background: #000000;
+       background: #cfcfcf;
     }
   }
 
   .spacer{
     padding-top: 15px;
-    background-color: aquamarine;
+    background-color: #ffffff;
   }
 
   .att_btn {
-    height: 50%;
-    width: 50%;
+    height: 25%;
+    width: 25%;
     margin-left: auto;
     margin-right: auto;
     
@@ -75,6 +75,6 @@ h2{
   }
 
   ion-content{
-    --background: none;
+    --background: #ffffff  !important;
     background-color: red; 
   }

@@ -1,6 +1,6 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-button slot="end" (click)="logout($event)">
+  <ion-toolbar color="primary">
+      <ion-button color="bbtn" slot="end" (click)="logout($event)">
         <ion-icon slot="icon-only" name="exit-outline"></ion-icon>>
       </ion-button>
     <ion-title>Admin Home</ion-title>
@@ -22,7 +22,7 @@
     <span class="divider line one-line"></span>
   
     <div class = "btnAsistencia">
-      <ion-button expand="block" color="secondary" shape="degault" [routerLink]="['/admin-register-tag']" routerLinkActive="routerLink" class="att_btn"> 
+      <ion-button expand="block" color="secondary" shape="round" [routerLink]="['/admin-register-tag']" routerLinkActive="routerLink" class="att_btn"> 
         <img src="https://mattia.pythonanywhere.com/static/pics/nfc_tag.png">
       </ion-button>
       <h1 class="att_text"> Registrar Tag </h1>
