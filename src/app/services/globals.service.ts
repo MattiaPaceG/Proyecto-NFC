@@ -14,7 +14,7 @@ export class GlobalsService {
     this.selected_group = new BehaviorSubject(group.toString())
   }
 
-  erase_selected_group(group){
+  erase_selected_group(){
     this.selected_group = new BehaviorSubject('');
   }
 

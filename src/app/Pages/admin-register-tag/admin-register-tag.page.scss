@@ -6,3 +6,18 @@
   justify-content: center;
   align-items: center;
 }
+
+.error-ion-padding{
+  font-size: small;
+  color: red;
+  padding-left: 5%;
+  text-align: left;
+  justify-content: left;
+}
+
+ion-loading.custom-loading {
+  --background: #e3edff;
+  --spinner-color: #1c6dff;
+
+  color: #1c6dff;
+}
