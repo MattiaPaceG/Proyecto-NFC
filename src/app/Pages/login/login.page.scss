@@ -19,3 +19,20 @@ img {
     margin-top: 10px;
     margin-left: 445px;
 }
+
+.center {
+    display:flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
+  }
+
+  .column {
+    flex: 33.33%;
+    padding: 5px;
+  }
+
+  .row {
+    display: flex;
+    height:auto;
+  }

@@ -7,12 +7,16 @@
   </ion-toolbar>
 </ion-header>
 
+
+
 <ion-content>
+  <div class="row">
+    <div class="column"><img class="center" src="https://utp.ac.pa/documentos/2015/imagen/logo_utp_1_300.png"/></div>
+    <div class="column"><img class="center" src="https://fisc.utp.ac.pa/sites/fisc.utp.ac.pa/files/documentos/2020/imagen/logo_en_contactenos.png"/></div>
+  </div>
+
   <form (ngSubmit)="submitForm()" [formGroup]="loginForm" novalidate>
-      <div>
-        <img src="https://utp.ac.pa/documentos/2015/imagen/logo_utp_1_300.png"/>
-        <img src="https://fisc.utp.ac.pa/sites/fisc.utp.ac.pa/files/documentos/2020/imagen/logo_en_contactenos.png"/>
-      </div>
+
     <ion-item lines="full">
       <ion-label position="floating">Email</ion-label>
       <ion-input type="text" formControlName="email" name ="email" required></ion-input>
