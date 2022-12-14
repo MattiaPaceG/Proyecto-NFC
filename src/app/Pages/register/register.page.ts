@@ -82,7 +82,9 @@ export class RegisterPage implements OnInit {
     if (this.type == "Estudiante"){
       const student = this.students.find(s => this.cedula === s.identification)
       if (student == null){
+         loading.dismiss()
          this.showAlert('Cedula de estudiante no encontrada!')
+         
          return 0
       }
       this.submitId = student.id
@@ -91,7 +93,7 @@ export class RegisterPage implements OnInit {
     const query = `?email=${this.email}&password=${this.password}&role=${this.type}&first=${this.first}&last=${this.last}&cedula=${this.cedula}&subID=${this.submitId}`;
     const response = await this.http.get('https://Mattia.pythonanywhere.com/register' + query).toPromise();
 
-    loading.dismiss()
+    
 
     if (response == "-1"){
       return this.showAlert('El e-mail utilizado ya està registrado');
